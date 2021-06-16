@@ -4,7 +4,8 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dev": "electron --inspect=5858 ."
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
