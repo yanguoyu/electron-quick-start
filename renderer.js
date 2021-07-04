@@ -4,7 +4,7 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
-const { remote } = require('electron');
+const { remote, ipcRenderer } = require('electron');
 const path = require('path')
 
 let viewLength = 0;
@@ -39,3 +39,19 @@ browserWindow.onclick = addBrowserWindow;
 
 const browserView = document.getElementById('BrowserView');
 browserView.onclick = addBrowserView;
+
+const sendEvent = document.getElementById('sendEvent');
+sendEvent.onclick = function(params) {
+  const res = ipcRenderer.send('event-async', 1, 2, 3)
+  console.log(res);
+};
+
+const sendSyncEvent = document.getElementById('sendSyncEvent');
+sendSyncEvent.onclick = function(params) {
+  const res = ipcRenderer.sendSync('event-sync', 1, 2, 3)
+  console.log(res);
+};
+
+ipcRenderer.on('reply-event', (e, data) => {
+  alert(data)
+})
